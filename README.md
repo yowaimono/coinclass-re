@@ -28,16 +28,35 @@ coinclass-re/
 ├── capture/             # 抓包原始产物（不入库）
 ├── notes/               # 分析过程笔记
 ├── scripts/             # 工具脚本（验证 / 抓取 / 解密）
-└── src/                 # 复刻实现（Python 包）
+└── src/
+    ├── js/              # JavaScript 实现（Node 18+，零依赖）
+    └── (python/ 待建)   # Python 实现（Phase 1）
 ```
 
 ## 快速开始（复刻核心）
 
+### JavaScript（Node 18+，零第三方依赖）
+
 ```bash
-# 依赖：Python 3.10+，requests + pycryptodome
+# 端到端验证：抓取并解密一个加密端点
+node scripts/verify_endpoint.js \
+  --url "https://capi.coinglass.com/api/futures/home/statistics"
+
+# 带查询参数
+node scripts/verify_endpoint.js \
+  --url "https://capi.coinglass.com/api/spot/rsi/list" \
+  --params '{"pageSize":5,"pageNum":1}'
+
+# 在代码中使用
+const { fetchAndDecrypt } = require('./src/js/coinglass');
+const data = await fetchAndDecrypt('https://capi.coinglass.com/api/futures/home/statistics');
+```
+
+### Python（requests + pycryptodome）
+
+```bash
 pip install requests pycryptodome
 
-# 端到端验证：抓取并解密一个加密端点
 python scripts/verify_endpoint.py \
   --url "https://capi.coinglass.com/api/futures/home/statistics"
 ```

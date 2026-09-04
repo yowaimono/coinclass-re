@@ -9,11 +9,11 @@
 - [ ] **实机验证**：跑通 3~5 个加密端点，确认真实性（当前时代可能已变化）
 
 ## Phase 1 · 核心复刻（自研实现，不直接搬运）
-- [ ] 实现 `src/coinglass/client.py`：浏览器态请求封装（完整请求头 + cache-ts-v2）
-- [ ] 实现 `src/coinglass/crypto.py`：v=0/1/2 全版本解密 + 遗留表
+- [x] **JS 实现**（`src/js/coinglass.js`，Node 18+ 零依赖）：client 请求封装 + crypto 全版本解密 + fetch_and_decrypt 高层接口
+- [x] **JS CLI**（`scripts/verify_endpoint.js`）：实测 3 端点解密成功
+- [ ] **Python 包化**：把 `scripts/verify_endpoint.py` 提炼为 `src/python/coinglass/`（client / crypto / endpoints）
 - [ ] 实现 `src/coinglass/endpoints.py`：端点注册表（URL / 参数 / 数据模型）
-- [ ] 实现 `fetch_and_decrypt()` 高层接口 + 容错（限流 / 反爬 / 加密头缺失降级明文）
-- [ ] 单元测试：已知样例向量回归
+- [ ] 单元测试：已知样例向量回归（JS + Python 双实现互验）
 
 ## Phase 2 · 端点摸底与数据字典
 - [ ] 抓取 136+ 端点，产出 `docs/endpoints/catalog.md`（路径 / 参数 / 返回字段 / 是否加密）
